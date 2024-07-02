@@ -44,7 +44,7 @@ const ProductDetail = () => {
           <h1>{product.name}</h1>
           <p>{product.price}</p>
           <p>{product.description}</p>
-        </div>a
+        </div>
         <div className='md:w-1/2 h-80 bg-slate-400 mb-14 md:mb-0'>
           <button onClick={handleBuy} className='border'>Comprar</button>
           {preferenceId && <Wallet initialization={{ preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />}
