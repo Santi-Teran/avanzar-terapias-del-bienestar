@@ -1,33 +1,44 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { RiDashboardFill, RiScissors2Fill, RiCalendar2Fill, RiServiceFill } from "react-icons/ri";
+import { FaHome, FaShoppingCart } from 'react-icons/fa';
+import { AiFillInfoCircle, AiFillMessage } from "react-icons/ai";
 
 const NavBar = () => {
+  
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <>
-      <div className='md:flex hidden justify-between items-center fixed w-full bg-gray-600 text-white p-4 shadow-md shadow-black'>
+    <div className='w-full fixed bg-slate-400 text-white shadow-xl z-10'>
+      <div className='hidden md:flex justify-between items-center p-4'>
         <div className='flex items-center gap-12'>
-          <Link href='/' className='md:w-1/6 w-1/2'>
-            {/* <Image src={logo} alt='Marea Tech'/> */}
-          </Link>
+          {/* <Link href='/' className='w-40'>
+            <Image src={logo} alt='Marea Tech'/>
+          </Link> */}
           <ul className='flex gap-12'>
-            <li>Inicio</li>
-            <li>Servicios</li>
-            <li>Nosotros</li>
+            <Link href={'/'}><li className='cursor-pointer hover:scale-110 transition-all' onClick={() => scrollToSection('inicio')}>Inicio</li></Link>
+            <Link href={'/product'}><li className='cursor-pointer hover:scale-110 transition-all'>Productos</li></Link>
+            <Link href={'/'}><li className='cursor-pointer hover:scale-110 transition-all' onClick={() => scrollToSection('contacto')}>Contacto</li></Link>
+            <Link href={'/'}><li className='cursor-pointer hover:scale-110 transition-all' onClick={() => scrollToSection('nosotros')}>Nosotros</li></Link>
           </ul>
         </div>
       </div>
 
-      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-gray-600 z-10'>
+      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-slate-400 z-10'>
         <ul className='text-white flex justify-around'>
-          <Link href={'/dashboard'} className='p-4 text-2xl '><RiDashboardFill /></Link>
-          <Link href={'/dashboard/turnos'} className='p-4 text-2xl '><RiScissors2Fill /></Link>
-          <Link href={'/dashboard/calendario'} className='p-4 text-2xl '><RiCalendar2Fill /></Link>
-          <Link href={'/dashboard/servicios'} className='p-4 text-2xl '><RiServiceFill /></Link>
+          <Link className='flex flex-col items-center py-2' href={'/'}><li onClick={() => scrollToSection('inicio')} className='text-2xl cursor-pointer'><FaHome /></li>Inicio</Link>
+          <Link className='flex flex-col items-center py-2' href={'/product'}><li className='text-2xl cursor-pointer'><FaShoppingCart /></li>Productos</Link>
+          <Link className='flex flex-col items-center py-2' href={'/'}><li onClick={() => scrollToSection('contacto')} className='text-2xl cursor-pointer'><AiFillMessage /></li>Contacto</Link>
+          <Link className='flex flex-col items-center py-2' href={'/'}><li onClick={() => scrollToSection('nosotros')} className='text-2xl cursor-pointer'><AiFillInfoCircle /></li>Nosotros</Link>
         </ul>
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
 export default NavBar;

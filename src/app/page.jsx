@@ -9,10 +9,18 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-20">
       <NavBar />
-      <Landing />
-      <Products />
-      <Contact />
-      <AboutUs />
+      <div id="inicio">
+        <Landing />
+      </div>
+      <div id="productos">
+        <Products limit={4} />
+      </div>
+      <div id="contacto">
+        <Contact />
+      </div>
+      <div id="nosotros">
+        <AboutUs />
+      </div>
       <Footer />
     </div>
   );
