@@ -37,18 +37,11 @@ export const getProducts = async () => {
 };
 
 export const getProductById = async (id) => {
-  // Get products from localStorage
-  const storedProducts = localStorage.getItem('products');
-  if (storedProducts) {
-    const products = JSON.parse(storedProducts);
-    return products.find(product => product.id === id);
-  }
-
-  // If not found in localStorage, fallback to API (not recommended if you want to avoid this)
   try {
     const response = await axios.get(`${API_URL}/Product/${id}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching product: ", error);
+    console.error("Error fetching product:", error);
+    return null; // Asegurarse de devolver null en caso de error
   }
 };
