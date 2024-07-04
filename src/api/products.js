@@ -4,16 +4,21 @@ export const handleSubmit = async (event, data, setData, file, setFile) => {
   event.preventDefault();
 
   try {
-    await createProduct(data, localStorage.getItem('authToken'));
+    const token = localStorage.getItem('authToken');
+    let dataUrl = '';
+
+    if (file) {
+      const response = await sendPdf(file, token); // Envía el archivo directamente
+      dataUrl = response.dataUrl;
+      setFile(null);
+    }
+
+    const productData = { ...data, dataUrl }; // Agrega dataUrl a los datos del producto
+    await createProduct(productData, token);
+    
     setData({ name: '', description: '', price: '', dataUrl: '', imageUrl: '', isActive: true });
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    await sendPdf(formData, localStorage.getItem('authToken'));
-    setFile(null);
   } catch (error) {
-    console.log(error);
+    console.error("Error:", error);
   }
 };
 

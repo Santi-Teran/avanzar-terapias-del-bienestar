@@ -18,12 +18,13 @@ export const sendPdf = async (file, token) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    await axios.post(`${API_URL}/Product/upload-file`, formData, {
+    const response = await axios.post(`${API_URL}/Product/upload-file`, formData, {
       headers: { 
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data'
       }
     });
+    return response.data; // Asegúrate de que el backend esté devolviendo dataUrl en el objeto data
   } catch (error) {
     console.error("Error uploading file: ", error);
     throw error;
