@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import NavBar from '@/components/Navbar';
 import Products from '@/components/Products';
 
@@ -6,9 +7,10 @@ const ProductsPage = () => {
     <div>
       <NavBar />
       <div className='hidden md:flex'>a</div>
-      <div className='mt-20'>
-      <Products />
+      <div className='my-20'>
+        <Products />
       </div>
+      <Footer />
     </div>
   )
 }

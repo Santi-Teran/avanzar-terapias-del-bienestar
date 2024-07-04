@@ -1,7 +1,8 @@
 'use client'
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getProducts } from "@/api/api";
-import Link from 'next/link';
+import { FaArrowRight } from "react-icons/fa";
 
 const Products = ({ limit }) => {
   const [products, setProducts] = useState([]);
@@ -20,13 +21,17 @@ const Products = ({ limit }) => {
 
   const displayedProducts = limit ? products.slice(0, limit) : products;
 
+  if (!displayedProducts) return <div className='h-20 my-40 bg-red-100'>Loading...</div>;
+
+
   return (
     <div className="flex flex-col gap-10 items-center">
       <div className="flex justify-between w-full">
-        <h2 className="mx-12 md:mx-20 lg:mx-40">Productos</h2>
+        <h2 className="mx-8 md:mx-20 lg:mx-40 text-xl md:text-3xl font-semibold">Productos</h2>
         {limit && (
-          <Link href="/product">
-            <button className="mx-12 md:mx-20 lg:mx-40 border">Ver Más</button>
+          <Link href="/product" className="flex items-center gap-2 mx-8 md:mx-20 lg:mx-40 border px-4 py-2 border-violet-600 rounded-full text-violet-500 hover:scale-110 hover:bg-violet-600 hover:text-white transition-all">
+            <button className='font-semibold'>Ver Más</button>
+            <FaArrowRight />
           </Link>
         )}
       </div>

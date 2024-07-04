@@ -15,11 +15,11 @@ export default function Home() {
       <div id="productos">
         <Products limit={4} />
       </div>
-      <div id="contacto">
-        <Contact />
-      </div>
       <div id="nosotros">
         <AboutUs />
+      </div>
+      <div id="contacto">
+        <Contact />
       </div>
       <Footer />
     </div>
