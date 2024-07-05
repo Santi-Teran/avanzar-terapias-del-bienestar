@@ -1,11 +1,12 @@
 'use client';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { fetchProductDetail, handleBuy } from '@/api/handleBuy';
-import NavBar from '@/components/Navbar';
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { fetchProductDetail, handleBuyClick } from '@/api/handleBuy';
 import Footer from '@/components/Footer';
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import PayPalButton from '@/components/PayPalButton';
+import NavBar from '@/components/Navbar';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const ProductDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
-  initMercadoPago(process.env.NEXT_PUBLIC_PUBLIC_KEY, {
+  initMercadoPago(process.env.NEXT_PUBLIC_KEY, {
     locale: "es-AR"
   });
 
@@ -31,17 +32,10 @@ const ProductDetail = () => {
     getProduct();
   }, [id]);
 
-  const handleBuyClick = async () => {
-    setIsLoading(true);
-    await handleBuy(product, setPreferenceId, setIsLoading);
-    setShowPaymentOptions(true);
-    setIsLoading(false);
-  };
-
   if (!product) return <div>Loading...</div>;
 
   return (
-    <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}>
+    <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_CLIENT_ID }}>
       <div>
         <NavBar />
         <div className='hidden md:flex'>a</div>
@@ -52,18 +46,22 @@ const ProductDetail = () => {
             <p>{product.price}</p>
             <p>{product.description}</p>
           </div>
-          <div className='md:w-1/2 h-80 bg-slate-400 mb-14 md:mb-0'>
+          <div className='md:w-1/2'>
             <button 
-              onClick={handleBuyClick} 
-              className='border w-full' 
+              onClick={() => handleBuyClick(product, setPreferenceId, setIsLoading, setShowPaymentOptions)} 
+              className='w-full font-bold p-3 rounded border border-violet-500 text-violet-500 hover:bg-violet-600 hover:text-white transition-all' 
               disabled={isLoading}
             >
               {isLoading ? 'Cargando...' : 'Comprar'}
             </button>
             {showPaymentOptions && (
-              <div className='flex flex-col items-center mt-4'>
-                {preferenceId && <Wallet initialization={{ preferenceId }} />}
-                <PayPalButtons style={{ layout: 'vertical' }} />
+              <div className='flex flex-col md:flex-row justify-center md:gap-4'>
+                <div className='md:w-1/2 mt-4 z-0'>
+                  <PayPalButton product={product} />
+                </div>
+                <div className='md:w-1/2'>
+                  {preferenceId && <Wallet initialization={{ preferenceId }} />}
+                </div>
               </div>
             )}
           </div>

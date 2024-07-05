@@ -41,3 +41,10 @@ export const fetchProductDetail = async (id) => {
   }
   return null;
 };
+
+export const handleBuyClick = async (product, setPreferenceId, setIsLoading, setShowPaymentOptions) => {
+  setIsLoading(true);
+  await handleBuy(product, setPreferenceId, setIsLoading);
+  setShowPaymentOptions(true);
+  setIsLoading(false);
+};
