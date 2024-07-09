@@ -22,8 +22,8 @@ const Footer = () => {
         </div>
         <div className='flex text-lg lg:text-xl items-center gap-x-3'>
           <Link href={''} target='_BLANK'><FaWhatsapp /></Link>
-          <Link href={''} target='_BLANK'><FaLinkedinIn /></Link>
-          <Link href={''} target='_BLANK'><FaInstagram /></Link>
+          <Link href={'https://www.linkedin.com/company/marea-tech/'} target='_BLANK'><FaLinkedinIn /></Link>
+          <Link href={'https://www.instagram.com/marea__tech/'} target='_BLANK'><FaInstagram /></Link>
         </div>
       </div>
     </div>

@@ -25,10 +25,10 @@ const NavBar = () => {
             <Link href={'/product'}><li className='cursor-pointer hover:text-violet-600 hover:scale-110 transition-all'>Productos</li></Link>
             <Link href={'/'}><li className='cursor-pointer hover:text-violet-600 hover:scale-110 transition-all' onClick={() => scrollToSection('contacto')}>Contacto</li></Link>
             <Link href={'/'}><li className='cursor-pointer hover:text-violet-600 hover:scale-110 transition-all' onClick={() => scrollToSection('nosotros')}>Nosotros</li></Link>
-            <div className='flex items-center gap-2 bg-gray-100 shadow-xl px-4 py-2 rounded-full'>
+            {/* <div className='flex items-center gap-2 bg-gray-100 shadow-xl px-4 py-2 rounded-full'>
               <FaSearch className='text-violet-600' />
               <input placeholder='Busca un libro...' className='text-gray-800 bg-transparent focus:outline-none'/>
-            </div>
+            </div> */}
           </ul>
         </div>
       </div>
@@ -40,12 +40,12 @@ const NavBar = () => {
           <Link className='flex flex-col items-center py-2' href={'/'}><li onClick={() => scrollToSection('contacto')} className='text-2xl cursor-pointer'><AiFillMessage /></li>Contacto</Link>
           <Link className='flex flex-col items-center py-2' href={'/'}><li onClick={() => scrollToSection('nosotros')} className='text-2xl cursor-pointer'><AiFillInfoCircle /></li>Nosotros</Link>
         </ul>
-        <div className='fixed top-0 left-0 right-0 bg-white p-3 shadow-xl'>
+        {/* <div className='fixed top-0 left-0 right-0 bg-white p-3 shadow-xl'>
           <div className='flex items-center gap-2 bg-gray-200 px-4 py-2 rounded-full'>
             <FaSearch className='text-gray-800' />
             <input placeholder='Busca un libro...' className='text-gray-800 bg-gray-200 focus:outline-none'/>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -21,18 +21,25 @@ const ProductDetail = () => {
 
   useEffect(() => {
     const getProduct = async () => {
-      const productDetail = await fetchProductDetail(id);
-      if (productDetail) {
+      try {
+        const productDetail = await fetchProductDetail(id);
         setProduct(productDetail);
-      } else {
-        console.error('Product not found');
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
-
     getProduct();
   }, [id]);
 
-  if (!product) return <div>Loading...</div>;
+  if (!product) return 
+  <div className='flex justify-center items-center w-screen'>
+    <div className='flex flex-col items-center'>
+      <p>Cargando los productos...</p>
+      <div className='loader'></div>
+    </div>
+  </div>;
 
   return (
     <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_CLIENT_ID }}>
@@ -52,9 +59,9 @@ const ProductDetail = () => {
             <button 
               onClick={() => handleBuyClick(product, setPreferenceId, setIsLoading, setShowPaymentOptions)} 
               className='w-full font-bold p-3 rounded border border-violet-500 text-violet-500 hover:bg-violet-600 hover:text-white transition-all' 
-              disabled={isLoading}
+              disabled={isLoading || showPaymentOptions}
             >
-              {isLoading ? 'Cargando...' : 'Comprar'}
+              {isLoading ? 'Cargando...' : showPaymentOptions ? 'Elija el método para pagar' : 'Comprar'}
             </button>
             {showPaymentOptions && (
               <div className='flex flex-col md:flex-row justify-center md:gap-4'>
