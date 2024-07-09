@@ -56,9 +56,9 @@ const Login = () => {
             />
           </div>
           { loading ? ( 
-              <button type="submit" className="w-full bg-dark-blue text-white py-2 rounded hover:scale-105 transition-all">Iniciar sesión</button>
+              <button type="submit" className="w-full bg-violet-800 text-white py-2 rounded hover:scale-105 transition-all">Iniciar sesión</button>
             ) : (
-              <button type="submit" className="w-full bg-dark-blue text-white py-2 rounded hover:scale-105 transition-all">Cargando...</button>
+              <button type="submit" className="w-full bg-violet-800 text-white py-2 rounded hover:scale-105 transition-all">Cargando...</button>
             )
           }
         </form>

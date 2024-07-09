@@ -46,3 +46,16 @@ export const getProductById = async (id) => {
     return null; // Asegurarse de devolver null en caso de error
   }
 };
+
+export const updateProduct = async (data, token) => {
+  try {
+    const response = await axios.post(`${API_URL}/Product/update`, data, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating product:', error);
+    toast.error('Error al actualizar el servicio');
+    throw error;
+  }
+};
