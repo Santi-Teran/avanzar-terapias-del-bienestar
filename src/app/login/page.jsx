@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -7,11 +7,26 @@ import { toast } from 'react-toastify';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const router = useRouter();
+
+  const validate = (data) => {
+    const newErrors = {};
+    if (!data.username) newErrors.username = 'El nombre de usuario es obligatorio';
+    if (!data.password) newErrors.password = 'La contraseña es obligatoria';
+    return newErrors;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    const validationErrors = validate({ username, password });
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setLoading(false);
+      return;
+    }
     try {
       const response = await axios.post('https://avanzarbackend.azurewebsites.net/login', {
         username,
@@ -23,7 +38,7 @@ const Login = () => {
     } catch (error) {
       console.error('Error during login:', error);
       toast.error('Nombre de usuario o contraseña incorrectos');
-    } finally {
+      setErrors({ login: 'Nombre de usuario o contraseña incorrectos' });
       setLoading(false);
     }
   };
@@ -43,6 +58,7 @@ const Login = () => {
               className="w-full px-3 py-2 border rounded"
               required
             />
+            {errors.username && <span className="text-red-500">{errors.username}</span>}
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-700">Contraseña</label>
@@ -54,13 +70,16 @@ const Login = () => {
               className="w-full px-3 py-2 border rounded"
               required
             />
+            {errors.password && <span className="text-red-500">{errors.password}</span>}
           </div>
-          { loading ? ( 
-              <button type="submit" className="w-full bg-violet-800 text-white py-2 rounded hover:scale-105 transition-all">Iniciar sesión</button>
-            ) : (
-              <button type="submit" className="w-full bg-violet-800 text-white py-2 rounded hover:scale-105 transition-all">Cargando...</button>
-            )
-          }
+          {errors.login && <div className="text-red-500 mb-4">{errors.login}</div>}
+          <button 
+            type="submit" 
+            className={`w-full py-2 rounded text-white ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-violet-800 hover:scale-105 transition-all'}`}
+            disabled={loading}
+          >
+            {loading ? 'Cargando...' : 'Iniciar sesión'}
+          </button>
         </form>
       </div>
     </div>
