@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { FaEdit } from 'react-icons/fa';
 import { handleEditClick, handleEditSubmit, handleEditChange } from '../api/handleEdit';
-import { getProducts } from "../api/api";
+import { getDashboardProducts } from "../api/api";
 
 const ServiceTable = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +13,7 @@ const ServiceTable = () => {
     const fetchInitialData = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        const productsData = await getProducts(token);
+        const productsData = await getDashboardProducts(token);
         setProducts(productsData);
       } catch (error) {
         console.error(error);

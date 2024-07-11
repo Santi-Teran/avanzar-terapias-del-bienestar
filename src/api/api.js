@@ -37,6 +37,12 @@ export const getProducts = async () => {
   return response.json();
 };
 
+export const getDashboardProducts = async () => {
+  const response = await fetch(`${API_URL}/Product/?isadmin=true`);
+  if (!response.ok) throw new Error('Something went wrong');
+  return response.json();
+};
+
 export const getProductById = async (id) => {
   try {
     const response = await axios.get(`${API_URL}/Product/${id}`);
