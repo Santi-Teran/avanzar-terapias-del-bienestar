@@ -65,9 +65,9 @@ const ProductDetail = () => {
             </button>
             {showPaymentOptions && (
               <div className='flex flex-col md:flex-row justify-center md:gap-4'>
-                <div className='md:w-1/2 mt-4 z-0'>
+                {/* <div className='md:w-1/2 mt-4 z-0'>
                   <PayPalButton product={product} />
-                </div>
+                </div> */}
                 <div className='md:w-1/2'>
                   {preferenceId && <Wallet initialization={{ preferenceId }} />}
                 </div>
